@@ -124,10 +124,11 @@ class Detect(nn.Module):
             dbox = self.decode_bboxes(
                 self.dfl(box) * self.strides, self.anchors.unsqueeze(0) * self.strides, xywh=False
             )
+            # dbox = dbox / 640.0 #for quantization
             return dbox.transpose(1, 2), cls.sigmoid().permute(0, 2, 1)
         else:
             dbox = self.decode_bboxes(self.dfl(box), self.anchors.unsqueeze(0)) * self.strides
-
+        # dbox = dbox / 640.0 #for quantization
         return torch.cat((dbox, cls.sigmoid()), 1)
 
     def bias_init(self):

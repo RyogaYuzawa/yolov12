@@ -166,7 +166,7 @@ def nms_rotated(boxes, scores, threshold=0.45):
 
 def non_max_suppression(
     prediction,
-    conf_thres=0.25,
+    conf_thres=0.15,
     iou_thres=0.45,
     classes=None,
     agnostic=False,
@@ -214,6 +214,11 @@ def non_max_suppression(
     import torchvision  # scope for faster 'import ultralytics'
 
     # Checks
+    # conf_thres = 0.10
+    # iou_thres=0.10
+    print("nms value: ", conf_thres)
+    print("iou value: ", iou_thres)
+
     assert 0 <= conf_thres <= 1, f"Invalid Confidence threshold {conf_thres}, valid values are between 0.0 and 1.0"
     assert 0 <= iou_thres <= 1, f"Invalid IoU {iou_thres}, valid values are between 0.0 and 1.0"
     if isinstance(prediction, (list, tuple)):  # YOLOv8 model in validation model, output = (inference_out, loss_out)
